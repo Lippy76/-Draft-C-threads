@@ -26,6 +26,9 @@ void printArr(Book *books, int len) {
     printf("All books written\n");
 }
 
+
+
+
 int main(int argc, char *argv[]) {
     FILE *fpc;
     char* filename;

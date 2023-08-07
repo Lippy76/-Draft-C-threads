@@ -21,9 +21,10 @@ typedef struct {
 int main(int argc, char *argv[]) {
     int sockfd = socket(PF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sockfd < 0) {
-        perror("Error creating socket");
+        perror("Error creating sockets");
         exit(EXIT_FAILURE);
     }
+
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
@@ -46,14 +47,14 @@ int main(int argc, char *argv[]) {
     Book data_array[MAX_DATA_SIZE];
     while (1) {
         if (data_count == MAX_DATA_SIZE) {
-            printf("Каталог заполнен");
+            printf("Каталог заполнен. запись окончена");
             break;
         }
         client_len = sizeof(client_addr);
         memset(buffer, 0, MAX_BUFFER_SIZE);
         int bytes_received = recvfrom(sockfd, buffer, MAX_BUFFER_SIZE, 0, (struct sockaddr*)&client_addr, &client_len);
         if (bytes_received < 0) {
-            perror("Error receiving data");
+            perror("Ошибка получения данных");
             exit(EXIT_FAILURE);
         }
         memcpy(&received_data, buffer, sizeof(received_data));
